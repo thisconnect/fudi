@@ -1,0 +1,13 @@
+{
+	"name": "fudi"
+    , "version": "0.1.0"
+    , "author": "Enrique Erne (http://mild.ch/)"
+    , "contributors": [
+		{"name": "Enrique Erne"}
+	]
+    , "main": "fudi"
+    , "licenses": [{
+		"type": "MIT"
+        , "url": "https://raw.github.com/thisconnect/fudi/master/LICENSE"
+	}]
+}
