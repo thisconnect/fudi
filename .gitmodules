@@ -1,0 +1,3 @@
+[submodule "tests/testigo"]
+	path = tests/testigo
+	url = git://github.com/eerne/testigo.git
