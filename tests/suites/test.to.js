@@ -6,7 +6,7 @@ var toFUDI = require('../../fudi').toFUDI;
 Tests.describe('FUDI toFUDI', function(it){
 
 
-	it('should convert to FUDI', function(expect){
+	it('should convert primitive data types to FUDI', function(expect){
 
 		expect(toFUDI).toBeType('function');
 
