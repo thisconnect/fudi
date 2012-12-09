@@ -12,11 +12,16 @@ Tests.describe('FUDI fromFUDI', function(it){
 
 		expect(toArray).toBeType('function');
 
+		expect(toArray('0;\n')).toBeType('array');
+		expect(toArray('0;\n')).toBeSimilar(['0']);
+
 		expect(toArray('foo;\n')).toBeType('array');
 		expect(toArray('foo;\n')).toBeSimilar(['foo']);
+
 		expect(toArray('key value;\n')).toBeType('array');
 		expect(toArray('key value;\n')).toBeSimilar(['key value']);
-		expect(toArray('foo bar;\ncat dog;\n')).toBeSimilar(['foo bar', 'cat dog']);
+
+		expect(toArray('foo bar;\ncat dog;\n')).toBeType('array');
 		expect(toArray('foo bar;\ncat dog;\n')).toBeSimilar(['foo bar', 'cat dog']);
 
 	});
