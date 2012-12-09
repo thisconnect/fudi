@@ -2,6 +2,22 @@ var toArray = exports.toArray = function(m){
 	return m.slice(0, -2).split(';\n');
 };
 
+exports.decode = function(m){
+	var o = {},
+		list = toArray(m),
+		clip;
+
+	for (var i = 0, l = list.length; i < l; i++){
+
+		// split into an array at first white space
+		clip = list[i].match(/^(\S+)\s(.*)$/);
+		if (clip == null) o[list[i]] = null;
+		else o[clip[1]] = !isNaN(clip[2]) ? Number(clip[2]) : clip[2];
+	}
+	return o;
+};
+
+/*
 function set(o, path, value){
 	var key = path.pop(),
 		current;
@@ -25,40 +41,31 @@ exports.toDeepObjectOld = function(m){
 	}
 	return obj;
 };
+*/
 
-exports.toDeepObject = function(m){
+exports.toObject = function(m){
 	var obj = {},
 		list = toArray(m),
 		message, value, o, key, focus;
 
 	for (var i = 0, l = list.length; i < l; i++){
-		message = list[i].split(' ');
-		value = message.pop();
-		key = message.pop();
+		messages = list[i].split(' ');
+		if (messages.length == 1){
+			obj[messages[0]] = null;
+			continue;
+		}
+		value = messages.pop();
+		key = messages.pop();
 		o = obj;
-		for (var ii = 0, ll = message.length; ii < ll; ii++){
-			focus = message[ii];
+
+		for (var ii = 0, ll = messages.length; ii < ll; ii++){
+			focus = messages[ii];
 			o = focus in o ? o[focus] : (o[focus] = {});
 		}
 		o[key] = isNaN(value) ? value : Number(value);
 	}
 	return obj;
 };
-
-exports.toObject = function(m){
-	var o = {},
-		list = toArray(m),
-		clip;
-
-	for (var i = 0, l = list.length; i < l; i++){
-		// split into an array at first white space
-		clip = list[i].match(/^(\S+)\s(.*)$/);
-		if (clip == null) o[list[i]] = null;
-		else o[clip[1]] = !isNaN(clip[2]) ? Number(clip[2]) : clip[2];
-	}
-	return o;
-};
-
 
 function toFUDI(o){
 	if (o == null) return null;
@@ -87,7 +94,7 @@ function toFUDI(o){
 	return (bag.length == 0) ? null : bag;
 }
 
-exports.toFUDI = function(o){
+exports.encode = function(o){
 	if (o == null) return null;
 	var bag = [], clip;
 	if (!Array.isArray(o)) bag = toFUDI(o);

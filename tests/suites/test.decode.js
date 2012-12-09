@@ -1,49 +1,30 @@
 exports.setup = function(Tests){
 
-var toArray = require('../../fudi').toArray,
-	toObject = require('../../fudi').toObject,
-	toDeepObject = require('../../fudi').toDeepObject;
+var decode = require('../../fudi').decode,
+	toArray = require('../../fudi').toArray,
+	toObject = require('../../fudi').toObject;
 
 
 Tests.describe('FUDI fromFUDI', function(it){
 
 
-	it('should convert to an array', function(expect){
+	it('should decode FUDI', function(expect){
 
-		expect(toArray).toBeType('function');
+		expect(decode).toBeType('function');
 
-		expect(toArray('0;\n')).toBeType('array');
-		expect(toArray('0;\n')).toBeSimilar(['0']);
-
-		expect(toArray('foo;\n')).toBeType('array');
-		expect(toArray('foo;\n')).toBeSimilar(['foo']);
-
-		expect(toArray('key value;\n')).toBeType('array');
-		expect(toArray('key value;\n')).toBeSimilar(['key value']);
-
-		expect(toArray('foo bar;\ncat dog;\n')).toBeType('array');
-		expect(toArray('foo bar;\ncat dog;\n')).toBeSimilar(['foo bar', 'cat dog']);
-
-	});
-
-
-	it('should convert to an object', function(expect){
-
-		expect(toObject).toBeType('function');
-
-		expect(toObject('0;\n')).toBeSimilar({
+		expect(decode('0;\n')).toBeSimilar({
 			'0': null
 		});
 
-		expect(toObject('foo;\n')).toBeSimilar({
+		expect(decode('foo;\n')).toBeSimilar({
 			'foo': null
 		});
 
-		expect(toObject('key value;\n')).toBeSimilar({
+		expect(decode('key value;\n')).toBeSimilar({
 			'key': 'value'
 		});
 
-		var object = toObject('1 100;\nfoo bar baz;\n');
+		var object = decode('1 100;\nfoo bar baz;\n');
 
 		expect(object).toHaveProperty('1');
 		expect(object).toHaveProperty('foo');
@@ -67,19 +48,48 @@ Tests.describe('FUDI fromFUDI', function(it){
 	});
 
 
-	it('should convert to an object containing keys and strings', function(expect){
+	it('should convert to an array', function(expect){
 
-		expect(toDeepObject('foo bar;\n')).toBeSimilar({
+		expect(toArray).toBeType('function');
+
+		expect(toArray('0;\n')).toBeType('array');
+		expect(toArray('0;\n')).toBeSimilar(['0']);
+
+		expect(toArray('foo;\n')).toBeType('array');
+		expect(toArray('foo;\n')).toBeSimilar(['foo']);
+
+		expect(toArray('key value;\n')).toBeType('array');
+		expect(toArray('key value;\n')).toBeSimilar(['key value']);
+
+		expect(toArray('foo bar;\ncat dog;\n')).toBeType('array');
+		expect(toArray('foo bar;\ncat dog;\n')).toBeSimilar(['foo bar', 'cat dog']);
+
+	});
+
+
+	it('should convert to a nested object', function(expect){
+
+		expect(toObject).toBeType('function');
+
+		expect(toObject('0;\n')).toBeSimilar({
+			'0': null
+		});
+
+		expect(toObject('foo;\n')).toBeSimilar({
+			'foo': null
+		});
+
+		expect(toObject('foo bar;\n')).toBeSimilar({
 			'foo': 'bar'
 		});
 
-		expect(toDeepObject('foo bar baz;\n')).toBeSimilar({
+		expect(toObject('foo bar baz;\n')).toBeSimilar({
 			'foo': {
 				'bar': 'baz'
 			}
 		});
 
-		expect(toDeepObject('foo bar 1 2;\nfoo bar 2 3;\n')).toBeSimilar({
+		expect(toObject('foo bar 1 2;\nfoo bar 2 3;\n')).toBeSimilar({
 			'foo': {
 				'bar': {
 					'1': 2,
@@ -88,7 +98,7 @@ Tests.describe('FUDI fromFUDI', function(it){
 			}
 		});
 
-		expect(toDeepObject('foo bar 1 2;\nfoo bar 2 blih;\nfoo baz 3 4;\n')).toBeSimilar({
+		expect(toObject('foo bar 1 2;\nfoo bar 2 blih;\nfoo baz 3 4;\n')).toBeSimilar({
 			'foo': {
 				'bar': {
 					'1': 2,
