@@ -5,7 +5,7 @@ var decode = require('../../fudi').decode,
 	toObject = require('../../fudi').toObject;
 
 
-Tests.describe('FUDI fromFUDI', function(it){
+Tests.describe('FUDI decode', function(it){
 
 
 	it('should decode FUDI', function(expect){

@@ -2,14 +2,33 @@ var toArray = exports.toArray = function(m){
 	return m.slice(0, -2).split(';\n');
 };
 
+exports.encode = function(o){
+	if (o == null) return null;
+	var type = typeof o, bag = [];
+	if (/string|number/.test(type)) return o + ';\n'
+
+	for (var p in o){
+		type = typeof o[p];
+		bag.push([p, (type == 'boolean')
+			? o[p]
+				? 1 : 0
+			: (/string|number/.test(type))
+				? o[p]
+				: Array.isArray(o[p])
+					? o[p].join(' ')
+					: o[p]
+		].join(' '));
+	}
+	if (bag.length == 0) return null;
+	else return bag.join(';\n') + ';\n';
+};
+
 exports.decode = function(m){
 	var o = {},
 		list = toArray(m),
 		clip;
 
 	for (var i = 0, l = list.length; i < l; i++){
-
-		// split into an array at first white space
 		clip = list[i].match(/^(\S+)\s(.*)$/);
 		if (clip == null) o[list[i]] = null;
 		else o[clip[1]] = !isNaN(clip[2]) ? Number(clip[2]) : clip[2];
@@ -67,7 +86,7 @@ exports.toObject = function(m){
 	return obj;
 };
 
-function toFUDI(o){
+function fromObject(o){
 	if (o == null) return null;
 	var type = typeof o, bag = [], clip;
 
@@ -84,7 +103,7 @@ function toFUDI(o){
 		}).join(' ');
 	}
 	for (var p in o){
-		clip = toFUDI(o[p]);
+		clip = fromObject(o[p]);
 
 		if (/number|string/.test(typeof clip)) bag.push([p, clip].join(' '));
 		else for (var pp in clip){
@@ -94,14 +113,15 @@ function toFUDI(o){
 	return (bag.length == 0) ? null : bag;
 }
 
-exports.encode = function(o){
+exports.fromObject = function(o){
 	if (o == null) return null;
 	var bag = [], clip;
-	if (!Array.isArray(o)) bag = toFUDI(o);
+	if (!Array.isArray(o)) bag = fromObject(o);
 	else for (var p in o){
-		clip = toFUDI(o[p]);
+		clip = fromObject(o[p]);
 		if (clip != null) bag = bag.concat(clip);
 	}
 	if (bag == null || bag.length == 0) return null;
 	else return (Array.isArray(bag) ? bag.join(';\n') : bag) + ';\n';
 };
+
