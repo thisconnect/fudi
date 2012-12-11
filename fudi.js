@@ -48,7 +48,7 @@ function set(o, path, value){
 	o[key] = value;
 }
 
-exports.toDeepObjectOld = function(m){
+exports.toObjectOld = function(m){
 	var obj = {},
 		list = toArray(m),
 		value;
@@ -124,4 +124,71 @@ exports.fromObject = function(o){
 	if (bag == null || bag.length == 0) return null;
 	else return (Array.isArray(bag) ? bag.join(';\n') : bag) + ';\n';
 };
+
+
+
+var Emitter = require('events').EventEmitter;
+
+var Parser = exports.Parser = function(){
+	if (!(this instanceof Parser)) return new Parser();
+	this.parsers = {};
+	this.on('newListener', this.add);
+	return this;
+};
+
+Parser.prototype = Object.create(Emitter.prototype);
+
+Parser.prototype.add = function(regex, callback){
+	//this.parsers[regex] = new RegExp('(?:^|(;\n))' + regex + '([^;\n]?)+', 'g');
+	//this.parsers[regex] = new RegExp('(?:^|;\n)' + regex + '(.*?)', 'g');
+	this.parsers[regex] = new RegExp('(^|;\n)' + regex + '([^;\n]?)+', 'g');
+	// .match(/(a b)(.*)[^;\n]/g)
+	// 'a b 1;\na a b c 2;\na b 3'.match(/((?:^|(;\n))a b)/g)
+};
+
+Parser.prototype.parse = function(fudi){
+	var result;
+	
+	for (var p in this.parsers){
+		result = fudi.match(this.parsers[p]);
+		if (result) console.log('result', p, result);
+	}/*
+	for (var i = 0, l = this.parsers.length; i < l; i++){
+		// console.log(this.parsers[i]);
+		result = fudi.match(this.parsers[i]);
+		if (result) console.log('result', result);
+	}*/
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

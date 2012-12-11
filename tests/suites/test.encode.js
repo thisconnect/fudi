@@ -28,7 +28,10 @@ Tests.describe('FUDI encode', function(it){
 		expect(encode({
 			'key': 'value',
 			'foo': 'bar'
-		})).toBe('key value;\nfoo bar;\n');
+		})).toBe(
+			'key value;\n'
+			+ 'foo bar;\n'
+		);
 
 		var fudi = encode({
 			'key': true,
@@ -79,7 +82,10 @@ Tests.describe('FUDI encode', function(it){
 		expect(fromObject({
 			'key': 'value',
 			'foo': 'bar'
-		})).toBe('key value;\nfoo bar;\n');
+		})).toBe(
+			'key value;\n'
+			+ 'foo bar;\n'
+		);
 
 		var fudi = fromObject({
 			'key': 1,
@@ -129,11 +135,19 @@ Tests.describe('FUDI encode', function(it){
 			'run 1',
 			'lala 3',
 			['uiui', 12]
-		])).toBe('run 1;\nlala 3;\nuiui 12;\n');
+		])).toBe(
+			'run 1;\n'
+			+ 'lala 3;\n'
+			+ 'uiui 12;\n'
+		);
 
 		expect(fromObject(
 			[1, [2, 3], [4, 5, 6]]
-		)).toBe('1;\n2 3;\n4 5 6;\n');
+		)).toBe(
+			'1;\n'
+			+ '2 3;\n'
+			+ '4 5 6;\n'
+		);
 
 		var fudi = fromObject([
 			'pd dsp 0',
@@ -168,7 +182,11 @@ Tests.describe('FUDI encode', function(it){
 			{key1: [1, 2]},
 			{key2: 2},
 			{3: [4, 5]}
-		])).toBe('key1 1 2;\nkey2 2;\n3 4 5;\n');
+		])).toBe(
+			'key1 1 2;\n'
+			+ 'key2 2;\n'
+			+ '3 4 5;\n'
+		);
 
 		var unordered = fromObject({
 			key1: [1, 2],
