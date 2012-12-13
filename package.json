@@ -1,7 +1,15 @@
 {
 	"name": "fudi"
-    , "version": "0.0.1"
+    , "version": "0.0.2"
     , "author": "Enrique Erne (http://mild.ch/)"
+	, "description": "101 ways to encode/decode FUDI"
+	, "keywords": [
+		"fudi"
+		, "parse"
+		, "format"
+		, "object"
+		, "array"
+	]
     , "contributors": [
 		{"name": "Enrique Erne"}
 	]
