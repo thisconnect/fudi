@@ -148,12 +148,7 @@ Parser.prototype.parse = function(fudi){
 	for (var p in this.parsers){
 		result = fudi.match(this.parsers[p]);
 		if (result) console.log('result', p, result);
-	}/*
-	for (var i = 0, l = this.parsers.length; i < l; i++){
-		// console.log(this.parsers[i]);
-		result = fudi.match(this.parsers[i]);
-		if (result) console.log('result', result);
-	}*/
+	}
 };
 
 
