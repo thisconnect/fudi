@@ -14,12 +14,12 @@ Tests.describe('FUDI events', function(it){
 
 		expect(fudi).toBeAnInstanceOf(Parser);
 
-		fudi.on(1, function(value){
-			console.log('1', value);
+		fudi.on(1, function(values){
+			console.log('1', values);
 		});
 
-		fudi.on('2 3', function(value){
-			console.log('2 3', value);
+		fudi.on('2 3', function(values){
+			console.log('2 3', values);
 		});
 		
 		//fudi.emit('parse', 'foo bar baz 1 2 3;\nfoo bar baz 4 5 6;\n');

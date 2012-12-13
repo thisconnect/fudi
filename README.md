@@ -1,8 +1,7 @@
-FUDI.js
-=======
+# FUDI.js
 
 101 ways to encode/decode [FUDI](http://en.wikipedia.org/wiki/FUDI) 
-messages to JSON in [Node.js](http://nodejs.org)
+messages to JSON
 
 
 Run tests

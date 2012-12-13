@@ -139,11 +139,7 @@ var Parser = exports.Parser = function(){
 Parser.prototype = Object.create(Emitter.prototype);
 
 Parser.prototype.add = function(regex, callback){
-	//this.parsers[regex] = new RegExp('(?:^|(;\n))' + regex + '([^;\n]?)+', 'g');
-	//this.parsers[regex] = new RegExp('(?:^|;\n)' + regex + '(.*?)', 'g');
-	this.parsers[regex] = new RegExp('(^|;\n)' + regex + '([^;\n]?)+', 'g');
-	// .match(/(a b)(.*)[^;\n]/g)
-	// 'a b 1;\na a b c 2;\na b 3'.match(/((?:^|(;\n))a b)/g)
+	this.parsers[regex] = new RegExp('^' + regex + '([^;]*)', 'gm');
 };
 
 Parser.prototype.parse = function(fudi){
