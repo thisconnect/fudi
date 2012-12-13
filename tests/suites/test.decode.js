@@ -89,7 +89,10 @@ Tests.describe('FUDI decode', function(it){
 			}
 		});
 
-		expect(toObject('foo bar 1 2;\nfoo bar 2 3;\n')).toBeSimilar({
+		expect(toObject(
+			'foo bar 1 2;\n'
+			+ 'foo bar 2 3;\n'
+		)).toBeSimilar({
 			'foo': {
 				'bar': {
 					'1': 2,
@@ -98,7 +101,11 @@ Tests.describe('FUDI decode', function(it){
 			}
 		});
 
-		expect(toObject('foo bar 1 2;\nfoo bar 2 blih;\nfoo baz 3 4;\n')).toBeSimilar({
+		expect(toObject(
+			'foo bar 1 2;\n'
+			+ 'foo bar 2 blih;\n'
+			+ 'foo baz 3 4;\n'
+		)).toBeSimilar({
 			'foo': {
 				'bar': {
 					'1': 2,
@@ -111,32 +118,6 @@ Tests.describe('FUDI decode', function(it){
 		});
 
 	});
-/*
-
-		expect(fromFUDI('key 1;\nfoo 1 2 3;\n')).toBe({
-			'key': 1,
-			'foo': [1, 2, 3]
-		});
-
-
-	it('should convert a FUDI string to a nested object', function(expect){
-
-		expect(fromFUDI('top foo bar;\n')).toBe({
-			'top': {
-				'foo': 'bar'
-			}
-		});
-
-		expect(fromFUDI('first second third value;\n')).toBe({
-			'first': {
-				'second': {
-					'third': 'value'
-				}
-			}
-		});
-
-	});
-*/
 
 });
 

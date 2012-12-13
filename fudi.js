@@ -133,6 +133,7 @@ var Parser = exports.Parser = function(){
 	if (!(this instanceof Parser)) return new Parser();
 	this.parsers = {};
 	this.on('newListener', this.add);
+	this.on('parse', this.parse);
 	return this;
 };
 
@@ -142,44 +143,16 @@ Parser.prototype.add = function(regex, callback){
 	this.parsers[regex] = new RegExp('^' + regex + '([^;]*)', 'gm');
 };
 
+Parser.prototype.remove = function(regex){
+	delete this.parsers[regex];
+};
+
 Parser.prototype.parse = function(fudi){
 	var result;
 	
 	for (var p in this.parsers){
 		result = fudi.match(this.parsers[p]);
-		if (result) console.log('result', p, result);
+		if (!!result) this.emit(p, result);
 	}
+	return this;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
