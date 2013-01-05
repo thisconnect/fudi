@@ -160,10 +160,10 @@ Tests.describe('FUDI encode', function(it){
 		]);
 
 		expect(fudi).toMatch(/^pd dsp 0;\n/);
-		expect(fudi).toMatch(/pd dsp 1;\n$/);
 		expect(fudi).toMatch(/0 a 1 2 3;\n/);
 		expect(fudi).toMatch(/1 b 4 5 6;\n/);
 		expect(fudi).toMatch(/2 c 7 8 9;\n/);
+		expect(fudi).toMatch(/pd dsp 1;\n$/);
 
 		expect(fromObject([])).toBeNull();
 		expect(fromObject([[]])).toBeNull();
