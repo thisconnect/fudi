@@ -5,7 +5,7 @@ var toArray = exports.toArray = function(m){
 exports.encode = function(o){
 	if (o == null) return null;
 	var type = typeof o, bag = [];
-	if (/string|number/.test(type)) return o + ';\n'
+	if (/string|number/.test(type)) return o + ';\n';
 
 	for (var p in o){
 		type = typeof o[p];
