@@ -225,7 +225,6 @@ Tests.describe('FUDI encode', function(it){
 		expect(fudi).toMatch(/deep nested key value;\n/);
 		expect(fudi).toMatch(/deep nested 1 2 3 4;\n/);
 		expect(fudi).toMatch(/deep 1 no order;\n/);
-		expect(fudi).toMatch(/1 no order;\n/);
 
 		expect(fromObject([{}])).toBeNull();
 		expect(fromObject([{}, {}])).toBeNull();
